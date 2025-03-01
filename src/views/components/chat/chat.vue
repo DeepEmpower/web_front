@@ -25,8 +25,8 @@
         @mouseenter="showCopyButton(index)"
         @mouseleave="hideCopyButton(index)"
       >
-       <span v-if="!item.url">{{ item.content }}</span> 
-       <span v-if="item.url" class="chat-img"><img :src="item.url" alt=""></span> 
+      <span v-if="!!item.url && item.url" class="chat-img"><img :src="item.url" alt=""></span> 
+      <span >{{ item.content }}</span> 
       </div>
     </div>
   </div>
@@ -172,7 +172,8 @@ const copyMessage = (item: ChatMessage) => {
       text-align: right;
       overflow: hidden;
       color: white;
-      background: linear-gradient(135deg, #2196f3, #1a237e);
+      margin-right:30px;
+      background: #409eff;
       .chat-img{
         width:100px;
         height:100px;

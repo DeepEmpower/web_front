@@ -18,11 +18,11 @@
             <el-button class="upload" v-if="route.meta.title === '审稿'">
               <UploadCom @update-images="(images) => handleUpdateImages(item.name, images)" />
             </el-button>
-            <div v-if="route.meta.title === '审稿'">
+            <div v-if="route.meta.title === '审稿' && !!uploadedImagesMap[item.name]">
               <el-button @click="stopFetchExamine" v-if="!showTypeExamine">停止</el-button>
               <el-button @click="sendMessage(item.name)" v-if="showTypeExamine">发送</el-button>
             </div>
-            <div v-if="route.meta.title !== '审稿'">
+            <div v-else>
               <el-button @click="stopFetch" v-if="!showType">停止</el-button>
               <el-button @click="sendMessage(item.name)" v-if="showType">发送</el-button>
             </div>
@@ -71,7 +71,6 @@ interface StreamData {
 
 // 获取当前路由对象
 const route = useRoute();
-console.log(route, '21312321')
 // 响应式数据
 const contentHeight = ref<number>(300);
 const editableTabsValue = ref<string>('1');
@@ -111,9 +110,7 @@ const setChatRef = (el: any, name: string) => {
 const initializeFirstMessage = (tabName: string) => {
 
   const routeTitle = route.meta.title as string; // 获取当前路由的 title
-  console.log(routeTitle)
   const firstMessage = chatList.find((item) => item.content.includes(routeTitle));
-  console.log(firstMessage)
   if (firstMessage && !chatData.value[tabName]?.length) {
     chatData.value[tabName] = [firstMessage];
     //     console.log(firstMessage)
@@ -159,7 +156,8 @@ const sendMessage = (tabName: string) => {
   const currentChatValue = chatValue.value[tabName];
   //判断现在是不是审稿路由
   const routeTitle = route.meta.title as string;
-  if (routeTitle !== '审稿') {
+  let isImg=!uploadedImagesMap.value[tabName] 
+  if (routeTitle !== '审稿' || isImg) {
     if (currentChatValue?.trim()) {
       const newMessage: ChatMessage = {
         role: 'user',
@@ -186,10 +184,10 @@ const sendMessage = (tabName: string) => {
       ElMessage.error('请输入文字');
     }
   } else {
-    if( uploadedImagesMap.value[tabName].length>0){
+    if(uploadedImagesMap.value[tabName].length>0){
       const newMessage: ChatMessage = {
         role: 'user',
-        content: '',
+        content: currentChatValue || '',
         url: uploadedImagesMap.value[tabName][0].url
       };
         // 更新当前 Tab 的聊天数据
@@ -198,10 +196,8 @@ const sendMessage = (tabName: string) => {
       }
       chatData.value[tabName].push(newMessage);
       uploadedImagesMap.value[tabName]=[]
-      console.log(activeChatRef.chatDatas[activeChatRef.chatDatas.length-1])
-      handleAnalyze(activeChatRef.chatDatas[activeChatRef.chatDatas.length-1],activeChatRef)
-    }
-   
+      handleAnalyze(activeChatRef.chatDatas[activeChatRef.chatDatas.length-1],activeChatRef,currentChatValue)
+    } 
   }
 };
 
@@ -251,10 +247,11 @@ const getData = async (
 //稿件
 const handleAnalyze = async (
   item: ChatMessage,
-  activeChatRef: any) => {
+  activeChatRef: any,
+  message:string,
+  ) => {
   showTypeExamine.value = false
-  await analyzeImage(item, '分析图片');
-  
+  await analyzeImage(item, message);
   activeChatRef.addChat(result);
   showTypeExamine.value = true
 };
@@ -307,7 +304,7 @@ const handleRemoveImage = (tabName: string, index: number) => {
 }
 
 :deep .el-tabs__new-tab {
-  background: linear-gradient(135deg, #2196f3, #1a237e);
+  background: #409eff;
   color: #fff;
   margin-right: 10px;
 }
@@ -326,7 +323,7 @@ const handleRemoveImage = (tabName: string, index: number) => {
 .right-top {
   flex: 1;
   background: #f8f9fa;
-  padding: 30px;
+  padding: 30px 0 30px 30px;
   overflow: auto;
 }
 
@@ -356,7 +353,7 @@ const handleRemoveImage = (tabName: string, index: number) => {
     padding: 15px 30px;
     height: 55px;
     line-height: 55px;
-    background: linear-gradient(135deg, #2196f3, #1a237e);
+    background: #409eff;
     color: white;
     border: none;
     border-radius: 12px;

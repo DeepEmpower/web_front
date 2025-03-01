@@ -72,7 +72,7 @@ const callOcrApi = async (file: FileWithUrl, message: string): Promise<string> =
           },
           {
             type: "text",
-            text: "识别图片中文字和图片编号,判断图片和文字是否匹配，图片排版有何错误"
+            text: message || "识别图片中文字和图片编号,判断图片和文字是否匹配，图片排版有何错误"
           }
         ]
       }
