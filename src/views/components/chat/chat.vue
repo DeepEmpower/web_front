@@ -25,7 +25,8 @@
         @mouseenter="showCopyButton(index)"
         @mouseleave="hideCopyButton(index)"
       >
-        {{ item.content }}
+       <span v-if="!item.url">{{ item.content }}</span> 
+       <span v-if="item.url" class="chat-img"><img :src="item.url" alt=""></span> 
       </div>
     </div>
   </div>
@@ -42,6 +43,7 @@ interface ChatMessage {
   content: string;
   reasoningContent?: string;
   id?: string;
+  url?:string
 }
 
 // 接收父组件传递的聊天数据
@@ -104,7 +106,7 @@ const showCopyButton = (index: number) => {
 };
 
 // 隐藏复制按钮
-const hideCopyButton = () => {
+const hideCopyButton = (index) => {
   hoverIndex.value = null;
 };
 
@@ -171,6 +173,14 @@ const copyMessage = (item: ChatMessage) => {
       overflow: hidden;
       color: white;
       background: linear-gradient(135deg, #2196f3, #1a237e);
+      .chat-img{
+        width:100px;
+        height:100px;
+        img{
+          width:100%;
+          height:100%;
+        }
+      }
     }
 
     .chat-receive {

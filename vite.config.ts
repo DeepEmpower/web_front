@@ -75,6 +75,16 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
           target: "http://maas-api.cn-huabei-1.xf-yun.com", // easymock
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
+        },
+        "/img": {
+          target: "https://dashscope.aliyuncs.com", // easymock
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/img/, ''),
+        },
+        "/aliyuncs": {
+          target: "https://ark.cn-beijing.volces.com", // easymock
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/aliyuncs/, ''),
         }
       },
     },
