@@ -35,7 +35,6 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 20px;
       background: #fff;
       padding: 5px 5px 0 5px;
   
