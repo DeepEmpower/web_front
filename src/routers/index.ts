@@ -7,10 +7,17 @@ interface extendRoute {
 //
 import toolRouter from './modules/tool'
 import knowledge from './modules/knowledge'
+import managementRouter from './modules/management'
+import tenderingRouter from './modules/tendering'
+
+
 // 异步组件
 export const asyncRoutes = [
+  ...managementRouter,
   ...knowledge,
+  ...tenderingRouter,
   ...toolRouter,
+ 
 ]
 
 /**
@@ -74,17 +81,18 @@ export const constantRoutes: Array<RouteRecordRaw & extendRoute> = [
         name: 'examine',
         meta: { title: '审稿', keepAlive: true, icon: 'FolderChecked' },
       },
-      {
-        path: '/home/creativeImages',
-        component: () => import('@/views/home/creativeImages.vue'),
-        name: 'creativeImages',
-        meta: { title: '创意图片生成', keepAlive: true, icon: 'Collection' },
-      }, 
+     
       {
         path: '/home/creativeDrawing',
         component: () => import('@/views/home/creativeDrawing.vue'),
         name: 'creativeDrawing',
         meta: { title: '创意绘图', keepAlive: true, icon: 'SetUp' },
+      }, 
+      {
+        path: '/home/voice',
+        component: () => import('@/views/home/voice.vue'),
+        name: 'voice',
+        meta: { title: '语音生成', keepAlive: true, icon: 'Collection' },
       }, 
     ],
   },

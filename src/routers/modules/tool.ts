@@ -42,13 +42,7 @@ const toolRouter = [
         component: () => import('@/views/utilities/speak.vue'),
         name: 'speak',
         meta: { title: '发言稿撰写助手', keepAlive: true, icon: 'FolderChecked' },
-      }, 
-      {
-        path: '/tool/finance',
-        component: () => import('@/views/utilities/finance.vue'),
-        name: 'finance',
-        meta: { title: '财务审查助手', keepAlive: true, icon: 'Folder' },
-      }, 
+      }
     ],
   },
 ]
