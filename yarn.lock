@@ -2426,6 +2426,11 @@ esbuild-darwin-64@0.14.53:
   resolved "https://registry.npmmirror.com/esbuild-darwin-64/-/esbuild-darwin-64-0.14.53.tgz"
   integrity sha512-gE7P5wlnkX4d4PKvLBUgmhZXvL7lzGRLri17/+CmmCzfncIgq8lOBvxGMiQ4xazplhxq+72TEohyFMZLFxuWvg==
 
+esbuild-darwin-arm64@0.14.53:
+  version "0.14.53"
+  resolved "https://registry.npmmirror.com/esbuild-darwin-arm64/-/esbuild-darwin-arm64-0.14.53.tgz"
+  integrity sha512-otJwDU3hnI15Q98PX4MJbknSZ/WSR1I45il7gcxcECXzfN4Mrpft5hBDHXNRnCh+5858uPXBXA1Vaz2jVWLaIA==
+
 esbuild@^0.14.47, esbuild@>=0.13:
   version "0.14.53"
   resolved "https://registry.npmmirror.com/esbuild/-/esbuild-0.14.53.tgz"

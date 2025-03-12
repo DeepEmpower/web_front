@@ -13,11 +13,11 @@ export const Store = defineStore({
     // 本地存储的名称
     key: 'globalState',
     //保存的位置
-    storage: window.sessionStorage, //localstorage
+    storage: window.localStorage, // 改用localStorage而非sessionStorage
   },
 })
 
 const pinia = createPinia()
-//pinia使用
+// pinia使用持久化插件
 pinia.use(piniaPluginPersistedstate)
 export default pinia

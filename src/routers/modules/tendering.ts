@@ -6,24 +6,30 @@ const tenderingRouter = [
   {
     path: '/tendering',
     component: Layout,
-    redirect: '/tendering/integration',
-    name: 'integration',
+    redirect: '/tendering/strategy',
+    name: 'projectManagement',
     meta: {
-      title: '招投标助手',
+      title: '项目管理',
       icon: 'Notebook',
     },
     children: [
       {
-        path: '/tendering/integration',
-        component: () => import('@/views/tendering/integration.vue'),
-        name: 'integration',
-        meta: { title: '招标信息整理', keepAlive: true, icon: 'MessageBox' },
+        path: '/tendering/strategy',
+        component: () => import('@/views/tendering/strategy.vue'),
+        name: 'strategy',
+        meta: { title: '战略分析', keepAlive: true, icon: 'Rank' },
       },
       {
-        path: '/tendering/document',
-        component: () => import('@/views/tendering/document.vue'),
-        name: 'document',
-        meta: { title: '标书辅助撰写', icon: 'document' },
+        path: '/tendering/product',
+        component: () => import('@/views/tendering/product.vue'),
+        name: 'product',
+        meta: { title: '产品管理', icon: 'Goods' },
+      },
+      {
+        path: '/tendering/copyright',
+        component: () => import('@/views/tendering/copyright.vue'),
+        name: 'copyright',
+        meta: { title: '版权合同', icon: 'Document' },
       }
     ],
   },

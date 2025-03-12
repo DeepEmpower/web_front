@@ -106,7 +106,7 @@ const showCopyButton = (index: number) => {
 };
 
 // 隐藏复制按钮
-const hideCopyButton = (index) => {
+const hideCopyButton = (index: number) => {
   hoverIndex.value = null;
 };
 

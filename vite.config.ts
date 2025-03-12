@@ -82,9 +82,42 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
           rewrite: (path) => path.replace(/^\/img/, ''),
         },
         "/aliyuncs": {
-          target: "https://ark.cn-beijing.volces.com", // easymock
+          target: "https://ark.cn-beijing.volces.com", 
           changeOrigin: true,
+          secure: false,
           rewrite: (path) => path.replace(/^\/aliyuncs/, ''),
+          headers: {
+            'Origin': 'https://ark.cn-beijing.volces.com',
+            'Referer': 'https://ark.cn-beijing.volces.com'
+          }
+        },
+        '/python': {
+          target: 'http://localhost:8000', // Python后端地址
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/python/, ''),
+          secure: false,
+          ws: true, // 支持WebSocket
+          configure: (proxy) => {
+            proxy.on('error', (err, req, res) => {
+              console.error('Python代理错误:', err);
+            });
+            proxy.on('proxyReq', (proxyReq, req, res) => {
+              console.log('Python代理请求:', req.method, req.url);
+            });
+            proxy.on('proxyRes', (proxyRes, req, res) => {
+              console.log('Python代理响应:', proxyRes.statusCode, req.url);
+            });
+          }
+        },
+        '/legal': {
+          target: 'http://115.190.30.196',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/legal/, ''),
+        },
+        '/meeting-api': {
+          target: 'http://115.190.30.196:2000',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/meeting-api/, '')
         }
       },
     },
